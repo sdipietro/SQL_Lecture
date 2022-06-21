@@ -82,17 +82,40 @@ WHERE
 -- CHALLENGE #17
 -- Show the name of all of the possessions and their owner
 
+SELECT
+    ny_instructors.name AS owner_name,
+    possessions.name AS possession_name
+FROM
+    ny_instructors
+JOIN possessions
+    ON ny_instructors.id = possessions.owner_id;
+
 
 
 -- CHALLENGE #18
 -- Find the total number of possessions owned by each person
 
-
+SELECT
+    ny_instructors.name AS owner_name,
+    COUNT(*) AS total_possessions
+FROM
+    possessions
+JOIN ny_instructors
+    ON ny_instructors.id = possessions.owner_id
+GROUP BY
+    ny_instructors.name;
 
 -- CHALLENGE #19
 -- Which SF instructor does not have any possessions?
 
-
+SELECT
+    ny_instructors.name
+FROM
+    ny_instructors
+LEFT OUTER JOIN possessions
+    ON ny_instructors.id = possessions.owner_id
+WHERE
+    possessions.id IS NULL;
 
 -- CHALLENGE #20
 -- Get all the friendships between SF and NY instructors
